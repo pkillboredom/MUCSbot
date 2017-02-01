@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5d9aa895-e169-4de4-884d-691ad882dcad" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/module.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MUCSbot.iml" afterPath="$PROJECT_DIR$/.idea/MUCSbot.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/MUCSbot.rb" afterPath="$PROJECT_DIR$/lib/MUCSbot.rb" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/plugins/ping.rb" afterPath="$PROJECT_DIR$/lib/plugins/ping.rb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/MUCSbot@run.coverage" NAME="run Coverage Results" MODIFIED="1485976115988" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="MUCSbot" />
+    <SUITE FILE_PATH="coverage/MUCSbot@run.coverage" NAME="run Coverage Results" MODIFIED="1485977844324" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="MUCSbot" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -68,8 +64,8 @@
       <file leaf-file-name="MUCSbot.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/MUCSbot.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="28" column="3" lean-forward="true" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+            <state relative-caret-position="396">
+              <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -139,8 +135,8 @@
         <option value="$PROJECT_DIR$/plugins/ping.rb" />
         <option value="$PROJECT_DIR$/config.yaml" />
         <option value="$PROJECT_DIR$/lib/module.rb" />
-        <option value="$PROJECT_DIR$/lib/MUCSbot.rb" />
         <option value="$PROJECT_DIR$/lib/plugins/ping.rb" />
+        <option value="$PROJECT_DIR$/lib/MUCSbot.rb" />
       </list>
     </option>
   </component>
@@ -422,12 +418,12 @@
       <workItem from="1485958126888" duration="1909000" />
       <workItem from="1485961359139" duration="4205000" />
       <workItem from="1485972296975" duration="156000" />
-      <workItem from="1485972592716" duration="3639000" />
+      <workItem from="1485972592716" duration="4656000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11956000" />
+    <option name="totallyTimeSpent" value="12973000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -734,8 +730,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/MUCSbot.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="28" column="3" lean-forward="true" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+        <state relative-caret-position="396">
+          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
           <folding />
         </state>
       </provider>

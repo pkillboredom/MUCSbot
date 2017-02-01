@@ -13,7 +13,10 @@ module MUCSbot
   Dir["#{File.dirname(__FILE__)}/*.rb"].each { |file| require file }
 
   CONFIG = YAML.load_file('config.yaml')
-  BOT = Discordrb::Bot.new token: CONFIG['token'], client_id: 276192706412281858
+  BOT = Discordrb::Commands::CommandBot.new(
+      token: CONFIG['token'],
+      client_id: 276192706412281858,
+      prefix: '/')
 
   def self.run
     #load plugins and require them.
