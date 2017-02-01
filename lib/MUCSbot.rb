@@ -1,3 +1,7 @@
+# MUCSbot MAIN
+# Uses code from mew by Shawak
+# See module.rb
+
 # Gem
 require 'discordrb'
 
@@ -5,15 +9,21 @@ require 'discordrb'
 require 'yaml'
 
 module MUCSbot
-  cuurentDirectory = "#{File.dirname(__FILE__)}"
-  CONFIG = YAML.load_file('config.yaml')
-  bot = Discordrb::Bot.new token: CONFIG['token'], client_id: 276192706412281858
+  #Load classes
+  Dir["#{File.dirname(__FILE__)}/*.rb"].each { |file| require file }
 
-  #load plugins and require them.
-  plugins["#{currentDirectory}/plugins/*.rb"].each {|pluginFile| require pluginFile}
-  plugins.each do |plugin|
-    bot.include! plugin
+  CONFIG = YAML.load_file('config.yaml')
+  BOT = Discordrb::Bot.new token: CONFIG['token'], client_id: 276192706412281858
+
+  def self.run
+    #load plugins and require them.
+    Dir["#{File.dirname(__FILE__)}/plugins/*.rb"].each {|file| require file}
+    (Plugins.all_the_modules-[Plugins]).each do |plugin|
+      BOT.include! plugin
+    end
+    BOT.run
   end
 
-  bot.run
+  self.run
+
 end
