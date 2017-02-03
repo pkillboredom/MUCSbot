@@ -1,9 +1,9 @@
 ---
 man:
-    description : PM's you manual pages describing commands and how they work
+    description : PM's you manual pages describing commands and how they work.
     usage       : |
         /man [command]
-        Only commands listed by /listman are accepted
+        Only commands listed by /listman are accepted.
         /listman
         /updateman
     options     : None!

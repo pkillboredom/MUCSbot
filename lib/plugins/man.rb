@@ -26,7 +26,7 @@ module MUCSbot
             #puts key
             puts value
             value.gsub!(/\n\s*^/, "\n\t\t") #Indents only newlines which do not end the value.
-            manOut +=  "\t#{key}:\n\t\t#{value}"
+            manOut +=  "\n\t#{key}:\n\t\t#{value}"
           end
           manOut += "```"
 
