@@ -1,4 +1,14 @@
 ---
+man:
+    description : PM's you manual pages describing commands and how they work
+    usage       : |
+        /man [command]
+        Only commands listed by /listman are accepted
+        /listman
+        /updateman
+    options     : None!
+    details     : No further info at this time.
+    arbitrary   : Parses out totally arbitrary data to you. Cool, huh?
 ping:
     description : Sends back a pong!
     usage       : /ping
