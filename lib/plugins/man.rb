@@ -4,7 +4,7 @@ module MUCSbot
       extend  Discordrb::Commands::CommandContainer
 
       DESCRIPTION = 'Tells you about a command!'
-      USAGE = "/man [name of command]"
+      USAGE = "/man [name of command] <public>"
       $manFile = YAML.load_file("#{File.dirname(__FILE__)}/man/man.yaml")
       $manList = "Available listings:"
 
@@ -12,11 +12,14 @@ module MUCSbot
         description: DESCRIPTION,
         usage: USAGE,
         min_args: 1,
-        max_args: 1) do |event, *text|
+        max_args: 2) do |event, *text|
         comm_str = text[0]
+        pubvar = text[1]
         begin
           #puts $manFile
-          event.send_temp('PMing man page...', 10)
+          if pubvar != 'public'
+            event.send_temp('PMing man page...', 10)
+          end
           #puts event.author.id
           manPage = $manFile[comm_str]
 
@@ -25,12 +28,16 @@ module MUCSbot
           manPage.each_pair do |key, value|
             #puts key
             puts value
-            value.gsub!(/\n\s*^/, "\n\t\t") #Indents only newlines which do not end the value.
-            manOut +=  "\n\t#{key}:\n\t\t#{value}"
+            newvalue = value.gsub(/\n\s*^/, "\n\t\t") #Indents only newlines which do not end the value.
+            manOut +=  "\n\t#{key}:\n\t\t#{newvalue}"
           end
           manOut += "```"
 
-          event.author.pm("#{manOut}")
+          if pubvar != 'public'
+            event.author.pm("#{manOut}")
+          else
+            event.send "#{manOut}"
+          end
         rescue
           event.send_temp("```markdown\n#Invalid command name.```", 10)
         end
