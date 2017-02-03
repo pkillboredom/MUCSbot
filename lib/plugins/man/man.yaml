@@ -1,0 +1,17 @@
+---
+ping:
+    description : Sends back a pong!
+    usage       : /ping
+    options     : None!
+    details     : No further info at this time.
+poll:
+    description : >
+        Creates a poll which ends either when a certain number of votes have been made and/or time has elapsed
+    usage       : |
+        /poll -options [question] [answer 1] [answer 2] <answer 3>
+        Questions and answers must be in double-quotes.
+    options     : |
+        -v [number of votes] ... Number of votes to end the poll at.
+        -t [time in seconds] ... Time to end the poll at.
+    details     : |
+        No further info at this time.
