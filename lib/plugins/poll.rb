@@ -12,9 +12,21 @@ module MUCSbot
           "... Time to end the poll at."
 
       command(:poll,
-              description:@description,
-              usage:@usage,
-              min_args: 3) do |event, *text|
+        description:Description,
+        usage:UsageStr,
+        min_args: 3) do |event, *text|
+
+
+      end
+
+      def self.parseArgs(args)
+        #joining arguments passed back into a string to do our own parsing
+        joined = args.join(' ')
+        #parsing option arguments into the hash
+        joined.scan(/-.*/).each do |option|
+          optionName = option[/(?<=-)\w*\b/] #Get the word immediately following the dash
+          parsedArgs["#{optionName}"] = option[]
+        end
       end
     end
   end
