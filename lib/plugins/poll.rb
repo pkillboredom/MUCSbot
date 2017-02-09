@@ -15,8 +15,8 @@ module MUCSbot
         description:Description,
         usage:UsageStr,
         min_args: 3) do |event, *text|
-
-
+        args = parseArgs(text)
+        puts args
       end
 
       def self.parseArgs(args)
@@ -25,8 +25,10 @@ module MUCSbot
         #parsing option arguments into the hash
         joined.scan(/-.*/).each do |option|
           optionName = option[/(?<=-)\w*\b/] #Get the word immediately following the dash
-          parsedArgs["#{optionName}"] = option[]
+          parsedArgs["#{optionName}"] = option[/(?<=-#{optionName}\s)\w*/]
         end
+        remArgs = joined.sub(/-\w\s*\w*\s*/, '').split(' ')
+        return remArgs
       end
     end
   end
