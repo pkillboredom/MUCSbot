@@ -1,7 +1,7 @@
 module MUCSbot
   module Plugins
     module Roll
-      require 'SecureRandom'
+      require 'securerandom'
 
       extend Discordrb::Commands::CommandContainer
       command(:roll, description: "Rolls up to 10 dice with up to 100 sides.\nNow using SecureRandom!",
