@@ -1,2 +1,6 @@
 ---
 token: YOUR_TOKEN
+welcome: |
+    YOUR WELCOME MESSAGE HERE
+welcome-mobile: |
+    MOBILE FRIENDLY WELCOME MESSAGE
