@@ -18,7 +18,12 @@ module MUCSbot
       client_id: 276192706412281858,
       prefix: '/')
 
-  def self.run
+  BOT.member_join do |event|
+    newMember = event::member
+    newMember.pm(CONFIG['welcome'])
+  end
+
+  def self.runCommandBot
     #load plugins and require them.
     Dir["#{File.dirname(__FILE__)}/plugins/*.rb"].each {|file| require file}
     (Plugins.all_the_modules-[Plugins]).each do |plugin|
@@ -27,6 +32,6 @@ module MUCSbot
     BOT.run
   end
 
-  self.run
+  runCommandBot
 
 end
