@@ -11,6 +11,8 @@ module MUCSbot
           " votes to end the poll at.\n-t [time in seconds]" +
           "... Time to end the poll at."
 
+      $pollResponses = {}
+
       command(:poll,
         description:Description,
         usage:UsageStr,
@@ -22,17 +24,99 @@ module MUCSbot
         #Comment the next two lines to enable PM usage
         #elsif event::server == nil
         #  event.send("This command cannot be used in PMs. Please see\'/man poll'.")
+        elsif $pollResponses["#{event.server.id}.#{event.channel.id}"] == nil
+          event.send_temp("There is a poll already running in this channel!", 10)
         else
           #Create poll output
-          pollStringBoilerplate = "POLL:\n```Markdown\n" +
+          pollString = "POLL:\n```Markdown\n" +
               "# Q: #{question}\n"
           answers.each_index do |answerIndex|
-            pollStringBoilerplate += "\n\t#{answerIndex}: %ANSWER#{answerIndex}%" +
+            pollString += "\n\t#{answerIndex}: #{answers[answerIndex]}" +
                 "\n\t  > %VOTES#{answerIndex}% votes."
           end
-          pollStringBoilerplate += "\n\n# Use '\/vote [OPTION #]' to vote!\n```"
+          pollString += "\n\n# Use '\/vote [OPTION #]' to vote!\n```"
 
-          pollOutput = event.send pollStringBoilerplate
+          response = event.respond(pollString)
+
+          class << response #create an anonymous class that has the additional vote params/methods
+            $endTime
+            $votes = []
+            $voters = []
+            $totalVotes = 0
+            $question = ''
+            $answers = {}
+            $stateChanged = false
+
+            #Initilization setters
+            #TODO replace this with a proper init
+            def setQuestion(question)
+              $question = question
+              $stateChanged = true
+            end
+            def setAnswers(answers)
+              $answers = answers
+              $stateChanged = true
+            end
+            def setEndTime(endTime)
+              $endTime = endTime
+              $stateChanged = true
+            end
+
+            #To be interfaced with by /vote
+            def incVote(answerNumber, voter)
+              $votes[answerNumber] += 1
+              $stateChanged = true
+              $totalVotes += 1
+              $voters.push voter
+            end
+            def getVote(answerNumber)
+              return $votes[answerNumber]
+            end
+
+            #To update the poll results
+            def getEndTime
+              return $endTime
+            end
+            def update
+              if $stateChanged == true
+                doRefresh
+                $stateChanged = false
+              end
+            end
+            private :doRefresh
+            def doRefresh
+              #Create poll output
+              pollString = "POLL:\n```Markdown\n" +
+                  "# Q: #{$question}\n"
+              $answers.each_index do |answerIndex|
+                pollString += "\n\t#{answerIndex}: #{$answers[answerIndex]}" +
+                    "\n\t  > #{answerIndex} votes."
+              end
+              pollString += "\n\n# Use '\/vote [OPTION #]' to vote!\n```"
+              edit(pollString)
+            end
+          end
+
+          response.setQuestion(question)
+          response.setAnswers(answers)
+          #Set the end time of the poll. Default 60 sec.
+          begin
+            response.setEndTime(options['t'])
+          rescue #Will occur if options['t'] is not set
+            response.setEndTime(response.timestamp + 60)
+          end
+          response.update
+
+          $pollResponses["#{event.server.id}.#{event.channel.id}"] = response
+
+          while response.getEndTime > Time.now
+            response.update
+            sleep .5
+          end
+
+          #TODO: Add a message stating that the poll has ended
+
+          $pollResponses.delete("#{event.server.id}.#{event.channel.id}")
         end
       end
 
@@ -59,8 +143,6 @@ module MUCSbot
 
         return parsedArgs, question, remArgs
       end
-
-
     end
   end
 end
