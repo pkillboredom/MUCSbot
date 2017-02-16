@@ -24,7 +24,7 @@ module MUCSbot
         #Comment the next two lines to enable PM usage
         #elsif event::server == nil
         #  event.send("This command cannot be used in PMs. Please see\'/man poll'.")
-        elsif $pollResponses["#{event.server.id}.#{event.channel.id}"] == nil
+        elsif $pollResponses["#{event.server.id}.#{event.channel.id}"] != nil
           event.send_temp("There is a poll already running in this channel!", 10)
         else
           #Create poll output
@@ -40,7 +40,7 @@ module MUCSbot
 
           class << response #create an anonymous class that has the additional vote params/methods
             $endTime
-            $votes = []
+            $votes = [nil]
             $voters = []
             $totalVotes = 0
             $question = ''
@@ -64,10 +64,22 @@ module MUCSbot
 
             #To be interfaced with by /vote
             def incVote(answerNumber, voter)
-              $votes[answerNumber] += 1
+              begin
+                puts answerNumber
+                puts "" << $votes[answerNumber] << "\n"
+                $votes[answerNumber] += 1
+              rescue
+                puts "vote failed on item check\n"
+                return false
+              end
+              if $voters.index(voter) != nil
+                puts "vote failed on voter check\n"
+                return false
+              end
               $stateChanged = true
               $totalVotes += 1
               $voters.push voter
+              return true;
             end
             def getVote(answerNumber)
               return $votes[answerNumber]
@@ -83,16 +95,33 @@ module MUCSbot
                 $stateChanged = false
               end
             end
-            private :doRefresh
+            #TODO refactor these
             def doRefresh
               #Create poll output
               pollString = "POLL:\n```Markdown\n" +
                   "# Q: #{$question}\n"
               $answers.each_index do |answerIndex|
+                if $votes[answerIndex] == nil #Initialize indecies we're using in $votes
+                  $votes[answerIndex] = 0
+                end
                 pollString += "\n\t#{answerIndex}: #{$answers[answerIndex]}" +
-                    "\n\t  > #{answerIndex} votes."
+                    "\n\t  > #{$votes[answerIndex]} votes."
               end
               pollString += "\n\n# Use '\/vote [OPTION #]' to vote!\n```"
+              edit(pollString)
+            end
+            def endPoll
+              #Create poll output
+              pollString = "POLL:\n```Markdown\n" +
+                  "# Q: #{$question}\n"
+              $answers.each_index do |answerIndex|
+                if $votes[answerIndex] == nil #Initialize indecies we're using in $votes
+                  $votes[answerIndex] = 0
+                end
+                pollString += "\n\t#{answerIndex}: #{$answers[answerIndex]}" +
+                    "\n\t  > #{$votes[answerIndex]} votes."
+              end
+              pollString += "\n\n# Use '\/vote [OPTION #]' to vote!\n##THIS POLL HAS ENDED##\n```"
               edit(pollString)
             end
           end
@@ -101,7 +130,8 @@ module MUCSbot
           response.setAnswers(answers)
           #Set the end time of the poll. Default 60 sec.
           begin
-            response.setEndTime(options['t'])
+            puts options['t']
+            response.setEndTime(Time.now + options['t'])
           rescue #Will occur if options['t'] is not set
             response.setEndTime(response.timestamp + 60)
           end
@@ -111,12 +141,31 @@ module MUCSbot
 
           while response.getEndTime > Time.now
             response.update
-            sleep .5
+            sleep 0.5
           end
 
-          #TODO: Add a message stating that the poll has ended
+          response.endPoll
 
+          #puts "Killing a poll..."
           $pollResponses.delete("#{event.server.id}.#{event.channel.id}")
+        end
+      end
+
+      command(:vote,
+        description: "Votes",
+        min_args: 1) do |event, *text|
+        poll = $pollResponses["#{event.server.id}.#{event.channel.id}"]
+
+        if poll == nil
+          event.send_temp("There is no poll running!", 10)
+        else
+          answerIndex = text[0].to_i
+          #puts answerIndex
+          res = poll.incVote(answerIndex, event.author.id)
+          if res == false
+            puts "INDEX: " << answerIndex.to_s << " AUTHORID: " << event.author.id.to_s << "\n"
+            event.send_temp("Either the answer does not exist or you have already voted", 10)
+          end
         end
       end
 
