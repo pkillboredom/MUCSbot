@@ -7,21 +7,44 @@ man:
         /listman
         /updateman
     options     : None!
-    details     : No further info at this time.
+    details     : Formatting *may* be incorrect at low resolutions and mobile.
     arbitrary   : Parses out totally arbitrary data to you. Cool, huh?
+mucsbot:
+    description : PMs you the project README.MD
+    usage       : /mucsbot
 ping:
     description : Sends back a pong!
     usage       : /ping
     options     : None!
     details     : No further info at this time.
 poll:
-    description : >
-        Creates a poll which ends either when a certain number of votes have been made and/or time has elapsed
+    description : |
+        Creates a poll which ends either when a certain number of votes have
+        been made and/or time has elapsed.
     usage       : |
         /poll -options [question] [answer 1] [answer 2] <answer 3>
         Questions and answers must be in double-quotes.
     options     : |
-        -v [number of votes] ... Number of votes to end the poll at.
         -t [time in seconds] ... Time to end the poll at.
     details     : |
         No further info at this time.
+roll:
+    description : Rolls dice for you!
+    usage       : |
+        /roll [params]
+        No parameters :  Rolls one D20
+        [Number]      :  Rolls a die with [Number] sides up to 100 sides.
+        [#OfDice]d[#OfSides] : Rolls [#OfDice] dies with [#OfSides] sides.
+            > E.g.: YOU: /roll 3d20
+                    MUCSbot: Rolled: 9, 19, 10, totalling 38
+    details     : >
+        Dice rolls are computed using SecureRandom, making them near true
+        random. This may be slow if hosted on low end hardware.
+welcome:
+    description : PMs you the message recieved by users joining the server.
+    usage       : /welcome [mobile]
+    options     : mobile ... append to command to PM without formatting.
+    details     : |
+        The standard message formatting may be broken on mobile or low
+        resolution screens. Use the mobile option to recieve unformatted
+        text.
