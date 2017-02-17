@@ -19,13 +19,11 @@ ping:
     details     : No further info at this time.
 poll:
     description : |
-        Creates a poll which ends either when a certain number of votes have
-        been made and/or time has elapsed.
+        Creates a poll which ends either when time has elapsed.
     usage       : |
-        /poll -options [question] [answer 1] [answer 2] <answer 3>
-        Questions and answers must be in double-quotes.
+        /poll -options [question];[answer 1];[answer 2];<answer 3>
     options     : |
-        -t [time in seconds] ... Time to end the poll at.
+        -t [time in seconds] ... Seconds for poll to last. Def: 60
     details     : |
         No further info at this time.
 roll:
@@ -37,7 +35,7 @@ roll:
         [#OfDice]d[#OfSides] : Rolls [#OfDice] dies with [#OfSides] sides.
             > E.g.: YOU: /roll 3d20
                     MUCSbot: Rolled: 9, 19, 10, totalling 38
-    details     : >
+    details     : |
         Dice rolls are computed using SecureRandom, making them near true
         random. This may be slow if hosted on low end hardware.
 welcome:
