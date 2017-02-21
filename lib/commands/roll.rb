@@ -1,5 +1,5 @@
 module MUCSbot
-  module Plugins
+  module Commands
     module Roll
       require 'securerandom'
 

@@ -1,5 +1,5 @@
 module MUCSbot
-  module Plugins
+  module Commands
     module Man
       extend  Discordrb::Commands::CommandContainer
 
@@ -27,7 +27,7 @@ module MUCSbot
           manOut = "```#{comm_str}:\n"
           manPage.each_pair do |key, value|
             #puts key
-            puts value
+            #puts value
             newvalue = value.gsub(/\n\s*^/, "\n\t\t") #Indents only newlines which do not end the value.
             manOut +=  "\n\t#{key}:\n\t\t#{newvalue}"
           end

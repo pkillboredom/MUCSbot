@@ -1,6 +1,6 @@
 module MUCSbot
-  module Plugins
-    module Readme
+  module Commands
+    module Mucsreadme
       extend Discordrb::Commands::CommandContainer
 
       readme = File.open("#{__dir__}/../../README.MD").read

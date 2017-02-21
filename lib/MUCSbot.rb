@@ -20,15 +20,16 @@ module MUCSbot
 
   BOT.member_join do |event|
     newMember = event::member
-    newMember.pm(CONFIG['welcome'])
+    begin
+      newMember.pm(CONFIG['welcome'])
+    rescue
+      puts 'A new member joined but the welcome message is missing'
+    end
   end
 
   def self.runCommandBot
     #load plugins and require them.
-    Dir["#{File.dirname(__FILE__)}/plugins/*.rb"].each {|file| require file}
-    (Plugins.all_the_modules-[Plugins]).each do |plugin|
-      BOT.include! plugin
-    end
+    Commands.include!
     BOT.run
   end
 

@@ -1,15 +1,14 @@
 # Plugin used to create fast polls
 
 module MUCSbot
-  module Plugins
+  module Commands
     module Poll
       extend Discordrb::Commands::CommandContainer
 
       Description = 'Creates a poll which ends either when a certain number of votes have been made and/or' +
           'time has elapsed'
-      UsageStr = "/poll -args [question];[answer 1];[answer 2];<answer 3>\n-v [number of votes] ... Number of " +
-          " votes to end the poll at.\n-t [time in seconds]" +
-          "... Time to end the poll at."
+      UsageStr = "/poll -args [question];[answer 1];[answer 2];<answer 3>\n-t [time in seconds]" +
+          "... Time to end the poll at. Max 180."
 
       $pollResponses = {}
 
@@ -19,11 +18,16 @@ module MUCSbot
         min_args: 1) do |event, *text|
         options, question, answers = parseArgs(text)
 
+        begin
+          options['t'] = options['t'].to_i
+        end
+
         if(question.length == 0 || answers.length < 2)
           event.send("You did not provide enough arguments. Type \'/poll\' for usage or see \'/man poll\'.")
-        #Comment the next two lines to enable PM usage
-        #elsif event::server == nil
-        #  event.send("This command cannot be used in PMs. Please see\'/man poll'.")
+        elsif event::server == nil
+          event.send("This command cannot be used in PMs. Please see\'/man poll'.")
+        elsif (options['t'] != nil && options['t'].to_i > 180)
+          event.send_temp("Max option for -t is 180. See /man poll.", 10)
         elsif $pollResponses["#{event.server.id}.#{event.channel.id}"] != nil
           event.send_temp("There is a poll already running in this channel!", 10)
         else
@@ -38,7 +42,8 @@ module MUCSbot
 
           response = event.respond(pollString)
 
-          class << response #create an anonymous class that has the additional vote params/methods
+          #turns the response object into a PollResponse
+          class << response
             $endTime
             $votes = [nil]
             $voters = []
@@ -95,6 +100,7 @@ module MUCSbot
                 $stateChanged = false
               end
             end
+
             #TODO refactor these
             def doRefresh
               #Create poll output
@@ -130,7 +136,7 @@ module MUCSbot
           response.setAnswers(answers)
           #Set the end time of the poll. Default 60 sec.
           begin
-            puts options['t']
+            #puts options['t']
             response.setEndTime(Time.now + options['t'])
           rescue #Will occur if options['t'] is not set
             response.setEndTime(response.timestamp + 60)

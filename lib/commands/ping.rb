@@ -1,9 +1,9 @@
 module MUCSbot
-  module Plugins
+  module Commands
     module Ping
       extend Discordrb::Commands::CommandContainer
       command(:ping, description: 'Sends back a pong!') do |event|
-        puts "Ping get"
+        #puts "Ping get"
         response = event.respond('Pong!')
         nil
       end
