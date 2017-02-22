@@ -2,8 +2,11 @@ module MUCSbot
   module Commands
     module Roll
       require 'securerandom'
-
       extend Discordrb::Commands::CommandContainer
+
+      MAX_DICE = CONFIG['dice']['max-dice']
+      MAX_SIDES = CONFIG['dice']['max-sides']
+
       command(:roll, description: "Rolls up to 10 dice with up to 100 sides.\nNow using SecureRandom!",
         usage: 'roll <\'# of dice\'d>[# of sides]',
         max_args: 1) do |event, *text|
@@ -18,10 +21,10 @@ module MUCSbot
             event.respond('Invalid Number of Arguments.')
           elsif rollArgs.any?{|rollArg| rollArg < 1}
             event.respond('All arguments must be at least 1.')
-          elsif rollArgs.length == 1 && rollArgs[0] <= 100 #Rolling one Die
+          elsif rollArgs.length == 1 && rollArgs[0] <= MAX_SIDES #Rolling one Die
             max = rollArgs[0]
             event.respond("Rolled a #{SecureRandom.random_number(max) + 1}")
-          elsif rollArgs[0] <= 10 && rollArgs[1] <=100 #Rolling many dice
+          elsif rollArgs[0] <= MAX_DICE && rollArgs[1] <= MAX_SIDES #Rolling many dice
             dice = rollArgs[0]
             max = rollArgs[1]
             rolls = Array.new(dice) {SecureRandom.random_number(max) + 1} #Fill array with dice rolls
