@@ -19,7 +19,7 @@ module MUCSbot
         options, question, answers = parseArgs(text)
 
         begin
-          options['t'] = options['t'].to_i
+          options['t'] = options['t'].to_i unless options['t'].to_i == 0
         end
 
         if(question.length == 0 || answers.length < 2)
