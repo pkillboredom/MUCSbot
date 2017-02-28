@@ -1,9 +1,9 @@
 ---
 token: YOUR_TOKEN
 version: 0.1.0
-welcome: |
+serverid.welcome: |
     YOUR WELCOME MESSAGE HERE
-welcome-mobile: |
+serverid.welcome-mobile: |
     MOBILE FRIENDLY WELCOME MESSAGE
 max-poll-time: 180
 dice:

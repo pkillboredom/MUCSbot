@@ -43,9 +43,9 @@ module MUCSbot
   #welcome message for new users
   BOT.member_join do |event|
     newMember = event::member
-    begin
-      newMember.pm(CONFIG['welcome'])
-    rescue
+    if(CONFIG["#{event.server.id}.welcome"] != nil)
+      newMember.pm(CONFIG["#{event.server.id}.welcome"])
+    else
       puts 'A new member joined but the welcome message is missing.'
     end
   end
