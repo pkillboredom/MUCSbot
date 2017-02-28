@@ -20,7 +20,7 @@ module MUCSbot
         options, question, answers = parseArgs(text)
 
         begin
-          options['t'] = options['t'].to_i
+          options['t'] = options['t'].to_i unless options['t'].to_i == 0
         rescue
           event.send_temp("Your time option was not an integer.", 10)
         end

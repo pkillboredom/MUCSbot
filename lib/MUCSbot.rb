@@ -1,6 +1,7 @@
 # MUCSbot MAIN
-# Uses code from mew by Shawak
-# See module.rb
+
+#For windows dev. Comment below on release builds.
+#::RBNACL_LIBSODIUM_GEM_LIB_PATH = "C:/libsodium/libsodium.dll"
 
 # Gem
 require 'discordrb'
