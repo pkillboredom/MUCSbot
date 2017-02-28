@@ -9,6 +9,7 @@ module MUCSbot
           'time has elapsed'
       UsageStr = "/poll -args [question];[answer 1];[answer 2];<answer 3>\n-t [time in seconds]" +
           "... Time to end the poll at. Max 180."
+      MaxPollTime = MUCSbot::CONFIG['max-poll-time'].to_i
 
       $pollResponses = {}
 
@@ -20,14 +21,17 @@ module MUCSbot
 
         begin
           options['t'] = options['t'].to_i unless options['t'].to_i == 0
+        rescue
+          event.send_temp("Your time option was not an integer.", 10)
         end
+
 
         if(question.length == 0 || answers.length < 2)
           event.send("You did not provide enough arguments. Type \'/poll\' for usage or see \'/man poll\'.")
         elsif event::server == nil
           event.send("This command cannot be used in PMs. Please see\'/man poll'.")
-        elsif (options['t'] != nil && options['t'].to_i > 180)
-          event.send_temp("Max option for -t is 180. See /man poll.", 10)
+        elsif (options['t'] != nil && options['t'].to_i > MaxPollTime)
+          event.send_temp("Max option for -t is #{MaxPollTime}. See /man poll.", 10)
         elsif $pollResponses["#{event.server.id}.#{event.channel.id}"] != nil
           event.send_temp("There is a poll already running in this channel!", 10)
         else
