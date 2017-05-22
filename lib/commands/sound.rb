@@ -8,10 +8,10 @@ module MUCSbot
       PlayUsage = ""
 
       #Map of playable sound files
-      sounds = Dir("#{CONFIG[sound][sound-folder]}/**/*")
+      sounds = Dir("#{CONFIG['sound']['sound-folder']}/**/*")
 
       #Connects to voice channels
-      CONFIG[sound][servers].each do |server|
+      CONFIG['sound']['servers'].each do |server|
         begin
           res = BOT.voice_connect(server.channel)
         rescue
