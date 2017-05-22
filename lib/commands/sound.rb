@@ -11,7 +11,7 @@ module MUCSbot
       sounds = Dir.glob("#{CONFIG['sound']['sound-folder']}/**/*")
 
       #Connects to voice channels
-      servers = Bot.servers
+      servers = BOT.servers
       CONFIG['sound']['servers'].each do |serverid|
 
         #try to find the server
