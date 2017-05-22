@@ -14,6 +14,9 @@ module MUCSbot
         Mucsreadme,
         Roll
     ]
+    if(CONFIG[Sound][enabled])
+      @commands.push(Sound)
+    end
 
     def self.include!
       @commands.each do |command|

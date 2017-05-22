@@ -9,3 +9,10 @@ max-poll-time: 180
 dice:
     max-dice: 10
     max-sides: 100
+sound:
+    enabled: false
+    sound-folder: sounds
+    servers:
+        serverid:
+            channel: channelID
+            volume: 1.0

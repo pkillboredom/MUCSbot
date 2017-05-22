@@ -1,3 +1,4 @@
 config.yaml
 Gemfile.lock
 .idea/
+/lib/commands/sounds/*

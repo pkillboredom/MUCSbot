@@ -26,7 +26,7 @@ module MUCSbot
   CONFIG = YAML.load_file('config.yaml')
 
   config = CONFIG
-  VERSIONSTRING = "0.1.0 DEV"
+  VERSIONSTRING = "0.1.0 DEV-SoundBot"
   unless config['version'] == VERSIONSTRING
     puts "WARNING: The version has changed. It is currently up to you to make sure config.yaml is okay.\n"
     config['version'] = VERSIONSTRING
