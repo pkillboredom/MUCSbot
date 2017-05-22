@@ -14,7 +14,7 @@ module MUCSbot
         Mucsreadme,
         Roll
     ]
-    if(CONFIG[Sound][enabled])
+    if(CONFIG['sound']['enabled'])
       @commands.push(Sound)
     end
 

@@ -10,6 +10,7 @@ module MUCSbot
       #Map of playable sound files
       sounds = Dir.glob("#{CONFIG['sound']['sound-folder']}/**/*")
 
+=begin
       #Connects to voice channels
       servers = MUCSbot::BOT.servers
       CONFIG['sound']['servers'].each do |serverid|
@@ -36,6 +37,7 @@ module MUCSbot
           puts("#{serverid}.#{serverid['channel']} failed to connect. Voice will not work on that server.")
         end
       end
+=end
 
       command(:play,
       description:PlayDescription,
