@@ -11,7 +11,7 @@ module MUCSbot
       sounds = Dir.glob("#{CONFIG['sound']['sound-folder']}/**/*")
 
       #Connects to voice channels
-      servers = BOT.servers
+      servers = MUCSbot::BOT.servers
       CONFIG['sound']['servers'].each do |serverid|
 
         #try to find the server
@@ -31,7 +31,7 @@ module MUCSbot
         end
 
         begin
-          res = BOT.voice_connect(the_channel)
+          res = MUCSbot::BOT.voice_connect(the_channel)
         rescue
           puts("#{serverid}.#{serverid['channel']} failed to connect. Voice will not work on that server.")
         end
