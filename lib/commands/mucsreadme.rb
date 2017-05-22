@@ -26,11 +26,9 @@ module MUCSbot
       end
 
       command(:sid, max_args: 0) do |event|
-        channels = []
         event.server.channels.each do |channel|
-          channels[channel.id] = channel.name
+          puts channel.name, " => ", channel.id
         end
-        puts channels
       end
     end
   end
