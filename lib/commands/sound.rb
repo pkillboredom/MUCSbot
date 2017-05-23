@@ -8,8 +8,8 @@ module MUCSbot
       PlayUsage = ""
 
       #Map of playable sound files
-      sounds = Dir.glob("#{File.dirname(__FILE__)}/sounds/**/*").select { |f| File.file?(f) }
-      puts sounds
+      $sounds = nil
+      reload_sounds
 
       command(:play,
       description:PlayDescription,
@@ -20,11 +20,23 @@ module MUCSbot
         res = sounds.find { |x| x.include? file}
         puts res
         unless res.nil?
-          puts "hit, next is play..."
           event.voice.play_file(res)
           event.voice.stop_playing
           res = nil
         end
+      end
+
+      command(:reloadsounds) do |event|
+        reload_sounds
+        event.respond_to? "Sounds reloaded."
+      end
+
+      command(:listsounds) do |event, *text|
+        event.author.pm($sounds)
+      end
+
+      def reload_sounds
+        $sounds = Dir.glob("#{File.dirname(__FILE__)}/sounds/**/*").select { |f| File.file?(f) }
       end
     end
   end
