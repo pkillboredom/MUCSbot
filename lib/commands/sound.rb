@@ -8,7 +8,7 @@ module MUCSbot
       PlayUsage = ""
 
       #Map of playable sound files
-      sounds = Dir.glob('./sounds/**/*')
+      sounds = Dir.glob("#{File.dirname(__FILE__)}/sounds/**/*")
       puts sounds
 
       command(:play,
