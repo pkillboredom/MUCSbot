@@ -17,11 +17,9 @@ module MUCSbot
       min_args: 1,
       max_args: 1) do |event, *text|
         file = text[0]
-        res = sounds.find { |x| i.include? file}
-        puts res
+        res = sounds.find { |x| x.include? file}
         unless res.nil?
-          puts "./#{res}"
-          event.voice.play_file("./#{res}")
+          event.voice.play_file(res)
         end
       end
     end
