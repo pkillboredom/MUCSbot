@@ -22,6 +22,7 @@ module MUCSbot
         unless res.nil?
           puts "hit, next is play..."
           event.voice.play_file(res)
+          event.voice.stop_playing
           res = nil
         end
       end
