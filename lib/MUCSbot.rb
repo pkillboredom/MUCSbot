@@ -59,9 +59,9 @@ module MUCSbot
       #Connects to voice channels
       CONFIG['sound']['servers'].each_key do |server|
         begin
-          BOT.voice_connect(['sound']['servers']["#{server}"]['channel'].to_i)
+          BOT.voice_connect(CONFIG['sound']['servers']["#{server}"]['channel'].to_i)
         rescue
-          puts ("#{['sound']['servers'][server]['channel'].to_i} failed to connect. Voice will not work on that server.")
+          puts ("#{CONFIG['sound']['servers'][server]['channel'].to_i} failed to connect. Voice will not work on that server.")
         end
       end
     end
