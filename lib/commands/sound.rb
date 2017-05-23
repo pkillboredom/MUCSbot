@@ -46,7 +46,9 @@ module MUCSbot
       max_args: 1) do |event, *text|
         file = text[0]
         res = sounds.find { |x| i.include? file}
+        puts res
         unless res.nil?
+          puts "./#{res}"
           event.voice.play_file("./#{res}")
         end
       end
