@@ -57,7 +57,7 @@ module MUCSbot
     BOT.run :async
     if(CONFIG['sound']['enabled'] == true)
       #Connects to voice channels
-      servers = MUCSbot::BOT.servers
+      servers = BOT.servers
       CONFIG['sound']['servers'].each do |serverid|
 
         #try to find the server
@@ -77,7 +77,7 @@ module MUCSbot
         end
 
         begin
-          res = MUCSbot::BOT.voice_connect(the_channel)
+          BOT.voice_connect(the_channel)
         rescue
           puts("#{serverid}.#{serverid['channel']} failed to connect. Voice will not work on that server.")
         end
