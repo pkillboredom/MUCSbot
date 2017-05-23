@@ -8,7 +8,7 @@ module MUCSbot
       PlayUsage = ""
 
       #Map of playable sound files
-      def reload_sounds
+      def self.reload_sounds
         $sounds = Dir.glob("#{File.dirname(__FILE__)}/sounds/**/*").select { |f| File.file?(f) }
       end
       $sounds = nil
