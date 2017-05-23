@@ -31,11 +31,11 @@ module MUCSbot
 
       command(:reloadsounds) do |event|
         reload_sounds
-        event.respond_to? "Sounds reloaded."
+        event.send("Sounds reloaded.")
       end
 
       command(:listsounds) do |event, *text|
-        event.respond_to? "PMing sounds."
+        event.send("PMing sounds.")
         event.author.pm($sounds)
       end
 
