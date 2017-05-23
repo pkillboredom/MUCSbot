@@ -9,6 +9,8 @@ module MUCSbot
 
       #Map of playable sound files
       sounds = Dir.glob("#{CONFIG['sound']['sound-folder']}/**/*")
+      puts CONFIG['sound']['sound-folder']
+      puts sounds
 
 =begin
       #Connects to voice channels
