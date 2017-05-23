@@ -47,7 +47,7 @@ module MUCSbot
         file = text[0]
         res = sounds.find { |x| i.include? file}
         unless res.nil?
-          event.voice.play_file(res)
+          event.voice.play_file("./#{res}")
         end
       end
     end
