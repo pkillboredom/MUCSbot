@@ -8,6 +8,9 @@ module MUCSbot
       PlayUsage = ""
 
       #Map of playable sound files
+      def reload_sounds
+        $sounds = Dir.glob("#{File.dirname(__FILE__)}/sounds/**/*").select { |f| File.file?(f) }
+      end
       $sounds = nil
       reload_sounds
 
@@ -32,12 +35,11 @@ module MUCSbot
       end
 
       command(:listsounds) do |event, *text|
+        event.respond_to? "PMing sounds."
         event.author.pm($sounds)
       end
 
-      def reload_sounds
-        $sounds = Dir.glob("#{File.dirname(__FILE__)}/sounds/**/*").select { |f| File.file?(f) }
-      end
+
     end
   end
 end
