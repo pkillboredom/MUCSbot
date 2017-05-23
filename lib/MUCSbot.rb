@@ -57,12 +57,10 @@ module MUCSbot
     BOT.run :async
     if(CONFIG['sound']['enabled'] == true)
       #Connects to voice channels
-      servers = BOT.servers
       CONFIG['sound']['servers'].each do |serverid|
-
         #try to find the server
         the_server = nil
-        servers.each do |server|
+        BOT.servers.each do |server|
           if server.id == serverid
             the_server = server
           end
