@@ -39,6 +39,9 @@ module MUCSbot
         event.author.pm($sounds)
       end
 
+      command(:stop) do |event|
+        event.voice.stop_playing
+      end
 
     end
   end
